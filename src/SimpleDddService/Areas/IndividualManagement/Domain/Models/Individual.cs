@@ -21,7 +21,7 @@ namespace SimpleDddService.Areas.IndividualManagement.Domain.Models
             BirthDate = birthDate;
         }
 
-        protected Individual() 
+        protected Individual()
         {
             _addresses = new Addresses();
         }

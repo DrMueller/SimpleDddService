@@ -27,7 +27,10 @@ namespace SimpleDddService.Infrastructure.Aspects.Security.Authentication.Web
         public async Task<IActionResult> LoginAsync([FromBody] AuthenticationRequest authenticationRequest)
         {
             var result = await _authenticationService.AuthenticateAsync(authenticationRequest);
-            await _signInManager.SignInAsync(result, true);
+            if (result.AuthenticationAccepted)
+            {
+                await _signInManager.SignInAsync(result.ApplicationUser, true);
+            }
 
             return Ok(result);
         }

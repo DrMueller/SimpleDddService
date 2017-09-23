@@ -1,4 +1,5 @@
-﻿using SimpleDddService.Infrastructure.DataAccess.DataMapping;
+﻿using Microsoft.AspNetCore.Http;
+using SimpleDddService.Infrastructure.DataAccess.DataMapping;
 using SimpleDddService.Infrastructure.DataAccess.DataMapping.Implementation;
 using SimpleDddService.Infrastructure.DataAccess.Repositories;
 using SimpleDddService.Infrastructure.DataAccess.Repositories.Handlers;
@@ -32,6 +33,7 @@ namespace SimpleDddService.Infrastructure.Application.Initialization.Handlers
                     config.For<IRepositoryFactory>().Use<RepositoryFactory>().Singleton();
                     config.For<IDataMappingInitializationService>().Use<DataMappingInitializationService>().Singleton();
                     config.For<IMongoClientFactory>().Use<MongoClientFactory>().Singleton();
+                    config.For<IHttpContextAccessor>().Use<HttpContextAccessor>().Singleton();
                 });
 
             return result;

@@ -20,11 +20,10 @@ namespace SimpleDddService.Infrastructure.Aspects.Security.Authentication.Servic
             _authorizationService = authorizationService;
         }
 
-        // http://www.codeguru.com/csharp/csharp/cs_misc/security/asp.net-core-and-claim-based-security.html
-        public override async Task<ClaimsPrincipal> CreateAsync(ApplicationUser user)
+        public override async Task<ClaimsPrincipal> CreateAsync(ApplicationUser applicationUser)
         {
-            var principal = await base.CreateAsync(user);
-            var applicationClaims = await _authorizationService.GetAllClaimsAsync(user.UserIdentifier);
+            var principal = await base.CreateAsync(applicationUser);
+            var applicationClaims = await _authorizationService.GetAllClaimsAsync(applicationUser.UserIdentifier);
 
             var identity = (ClaimsIdentity)principal.Identity;
             foreach (var appClaim in applicationClaims)

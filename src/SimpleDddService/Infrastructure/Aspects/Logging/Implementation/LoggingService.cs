@@ -1,31 +1,34 @@
 ﻿using System;
-using Microsoft.Extensions.Logging;
+using SimpleDddService.Infrastructure.Aspects.Logging.Handlers;
+using SimpleDddService.Infrastructure.DomainExtensions.Invariance;
 
 namespace SimpleDddService.Infrastructure.Aspects.Logging.Implementation
 {
     public class LoggingService : ILoggingService
     {
-        private readonly ILogger<LoggingService> _logger;
+        private readonly ILoggerProxy _logProxy;
 
-        public LoggingService(ILogger<LoggingService> logger)
+        public LoggingService(ILoggerProxy logProxy)
         {
-            _logger = logger;
+            _logProxy = logProxy;
         }
 
         public void LogException(Exception ex)
         {
-            // Not sure what the EventId is used for
-            _logger.LogError(new EventId(), ex, ex.Message);
+            Guard.ObjectNotNull(() => ex);
+            _logProxy.LogError(ex, ex.Message);
         }
 
         public void LogInfo(string message)
         {
-            _logger.LogInformation(message);
+            Guard.StringNotNullorEmpty(() => message);
+            _logProxy.LogInformation(message);
         }
 
         public void LogWarning(string message)
         {
-            _logger.LogWarning(message);
+            Guard.StringNotNullorEmpty(() => message);
+            _logProxy.LogWarning(message);
         }
     }
 }

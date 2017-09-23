@@ -4,7 +4,6 @@
     {
         // We can't just set the ID here, since we want the Id configured definetely on the MongoDB-Maps
         protected abstract string ComparedId { get; }
-
         private bool IsTransient => string.IsNullOrEmpty(ComparedId);
 
         public override bool Equals(object obj)

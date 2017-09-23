@@ -5,6 +5,6 @@ namespace SimpleDddService.Infrastructure.Aspects.Security.Authentication.Servic
 {
     public interface IAuthenticationService
     {
-        Task<ApplicationUser> AuthenticateAsync(AuthenticationRequest authenticationRequest);
+        Task<AuthenticationResult> AuthenticateAsync(AuthenticationRequest authenticationRequest);
     }
 }

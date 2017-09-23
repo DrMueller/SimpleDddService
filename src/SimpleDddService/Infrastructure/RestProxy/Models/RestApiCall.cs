@@ -12,9 +12,9 @@ namespace SimpleDddService.Infrastructure.RestProxy.Models
             Body = body;
         }
 
+        public Uri BaseUri { get; }
         public object Body { get; }
         public RestApiCallMethodType MethodType { get; }
         public string ResourcePath { get; }
-        public Uri BaseUri { get; }
     }
 }

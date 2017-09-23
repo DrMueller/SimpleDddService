@@ -4,6 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleDddService.Infrastructure.Application.Initialization.Handlers;
 using SimpleDddService.Infrastructure.Application.Settings.Models;
+using SimpleDddService.Infrastructure.ServiceProvisioning;
+using StructureMap;
 
 namespace SimpleDddService.Infrastructure.Application.Initialization
 {
@@ -11,13 +13,25 @@ namespace SimpleDddService.Infrastructure.Application.Initialization
     {
         internal static IServiceProvider InitializeServices(IServiceCollection services, IConfigurationRoot configuration)
         {
-            var result = IocInitialization.InitializeIoc(services);
-
             services.AddMvc();
-            InitializeAutoMapper(services);
+            services.AddAutoMapper();
             InitializeAppSettings(services, configuration);
             InitializeCors(services);
-            SecurityInitialization.InitializeSecurity(services);
+
+            var container = ContainerInitialization.CreateInitializedContainer();
+            SecurityInitialization.InitializeSecurity(services, container);
+
+            var result = CreateServiceProvider(services, container);
+            return result;
+        }
+
+        private static IServiceProvider CreateServiceProvider(IServiceCollection services, IContainer container)
+        {
+            container.Populate(services);
+            var result = container.GetInstance<IServiceProvider>();
+            var provisioningService = result.GetService<IProvisioningService>();
+
+            ProvisioningServiceSingleton.Initialize(provisioningService);
 
             return result;
         }
@@ -26,11 +40,6 @@ namespace SimpleDddService.Infrastructure.Application.Initialization
         {
             services.Configure<AppSettings>(configuration.GetSection(AppSettings.SectionName));
             services.AddSingleton(configuration);
-        }
-
-        private static void InitializeAutoMapper(IServiceCollection services)
-        {
-            services.AddAutoMapper();
         }
 
         private static void InitializeCors(IServiceCollection services)

@@ -6,6 +6,9 @@ namespace SimpleDddService.Infrastructure.DomainExtensions.Invariance
 {
     public static class Guard
     {
+        public const string NullObjectExceptionMessage = "Object {0} must not be null.";
+        public const string StringNullOrEmptyExceptionMessage = "String {0} must not be null or empty.";
+
         public static void ObjectNotNull(Expression<Func<object>> propertyExpression)
         {
             var func = propertyExpression.Compile();
@@ -17,7 +20,8 @@ namespace SimpleDddService.Infrastructure.DomainExtensions.Invariance
             }
 
             var propertyName = ExpressionHandler.GetPropertyName(propertyExpression);
-            throw new ArgumentException($"Object {propertyName} must not be null.");
+            var exceptionMessage = string.Format(NullObjectExceptionMessage, propertyName);
+            throw new ArgumentException(exceptionMessage);
         }
 
         public static void StringNotNullorEmpty(Expression<Func<string>> propertyExpression)
@@ -31,7 +35,8 @@ namespace SimpleDddService.Infrastructure.DomainExtensions.Invariance
             }
 
             var propertyName = ExpressionHandler.GetPropertyName(propertyExpression);
-            throw new ArgumentException($"String {propertyName} must not be null or empty.");
+            var exceptionMessage = string.Format(StringNullOrEmptyExceptionMessage, propertyName);
+            throw new ArgumentException(exceptionMessage);
         }
     }
 }

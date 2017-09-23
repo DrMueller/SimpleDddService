@@ -15,11 +15,12 @@ namespace SimpleDddService.Infrastructure.Aspects.Security.Authentication.Servic
             _userLogInHandler = userLogInHandler;
         }
 
-        public async Task<ApplicationUser> AuthenticateAsync(AuthenticationRequest authenticationRequest)
+        public async Task<AuthenticationResult> AuthenticateAsync(AuthenticationRequest authenticationRequest)
         {
-            var userIsAuthenticated = await _userLogInHandler.LogInUserAsync(authenticationRequest.UserIdentifier, authenticationRequest.UserIdentifier);
-            var result = await _applicationUserFactory.CreateUserAsync(authenticationRequest.UserIdentifier, userIsAuthenticated);
+            var authenticationAccepted = await _userLogInHandler.LogInUserAsync(authenticationRequest.UserIdentifier, authenticationRequest.Password);
+            var user = await _applicationUserFactory.CreateUserAsync(authenticationRequest.UserIdentifier, authenticationAccepted);
 
+            var result = new AuthenticationResult(authenticationAccepted, user);
             return result;
         }
     }

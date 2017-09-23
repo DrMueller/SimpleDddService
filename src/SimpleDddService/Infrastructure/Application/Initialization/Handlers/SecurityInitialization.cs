@@ -3,21 +3,45 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleDddService.Infrastructure.Aspects.Security.Authentication.Models;
 using SimpleDddService.Infrastructure.Aspects.Security.Authentication.Services.Implementation;
+using SimpleDddService.Infrastructure.Aspects.Security.Authentication.Services.Stores;
 using SimpleDddService.Infrastructure.Aspects.Security.Configuration;
-using SimpleDddService.Infrastructure.ServiceProvisioning;
+using StructureMap;
 
 namespace SimpleDddService.Infrastructure.Application.Initialization.Handlers
 {
     internal static class SecurityInitialization
     {
-        internal static void InitializeSecurity(IServiceCollection services)
+        internal static void InitializeSecurity(IServiceCollection services, IContainer container)
         {
+            services.AddAuthentication().AddCookie();
+
             services.AddIdentity<ApplicationUser, Role>();
-
             services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, AppUserClaimsPrincipalFactory>();
-            var policyConfigurationService = ProvisioningServiceSingleton.Instance.GetService<IPolicyConfigurationService>();
-            services.AddAuthorization(o => policyConfigurationService.ConfigurePolicies(o));
+            services.AddScoped<IUserStore<ApplicationUser>, ApplicationUserStore>();
+            services.AddScoped<IRoleStore<Role>, RoleStore>();
 
+            ConfigurePolicies(services, container);
+            ConfigureApplicationCookie(services);
+            ConfigureIdentityOptions(services);
+        }
+
+        private static void ConfigureApplicationCookie(IServiceCollection services)
+        {
+            services.ConfigureApplicationCookie(
+                options =>
+                {
+                    // Cookie settings
+                    options.Cookie.HttpOnly = true;
+                    options.Cookie.Expiration = TimeSpan.FromDays(150);
+                    options.LoginPath = "/Account/Login"; // If the LoginPath is not set here, ASP.NET Core will default to /Account/Login
+                    options.LogoutPath = "/Account/Logout"; // If the LogoutPath is not set here, ASP.NET Core will default to /Account/Logout
+                    options.AccessDeniedPath = "/Account/AccessDenied"; // If the AccessDeniedPath is not set here, ASP.NET Core will default to /Account/AccessDenied
+                    options.SlidingExpiration = true;
+                });
+        }
+
+        private static void ConfigureIdentityOptions(IServiceCollection services)
+        {
             services.Configure<IdentityOptions>(
                 options =>
                 {
@@ -37,18 +61,12 @@ namespace SimpleDddService.Infrastructure.Application.Initialization.Handlers
                     // User settings
                     options.User.RequireUniqueEmail = true;
                 });
+        }
 
-            services.ConfigureApplicationCookie(
-                options =>
-                {
-                    // Cookie settings
-                    options.Cookie.HttpOnly = true;
-                    options.Cookie.Expiration = TimeSpan.FromDays(150);
-                    options.LoginPath = "/Account/Login"; // If the LoginPath is not set here, ASP.NET Core will default to /Account/Login
-                    options.LogoutPath = "/Account/Logout"; // If the LogoutPath is not set here, ASP.NET Core will default to /Account/Logout
-                    options.AccessDeniedPath = "/Account/AccessDenied"; // If the AccessDeniedPath is not set here, ASP.NET Core will default to /Account/AccessDenied
-                    options.SlidingExpiration = true;
-                });
+        private static void ConfigurePolicies(IServiceCollection services, IContainer container)
+        {
+            var policyConfigurationService = container.GetInstance<IPolicyConfigurationService>();
+            services.AddAuthorization(o => policyConfigurationService.ConfigurePolicies(o));
         }
     }
 }

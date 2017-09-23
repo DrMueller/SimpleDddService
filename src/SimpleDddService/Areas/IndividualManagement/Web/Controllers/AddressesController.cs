@@ -1,10 +1,12 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SimpleDddService.Areas.IndividualManagement.Application.AppServices;
 using SimpleDddService.Areas.IndividualManagement.Application.Dtos;
 
 namespace SimpleDddService.Areas.IndividualManagement.Web.Controllers
 {
+    [Authorize]
     [Route("api/IndividualManagement/Individuals")]
     public class AddressesController : Controller
     {

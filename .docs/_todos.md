@@ -1,3 +1,1 @@
-- Security
-- Snippets für Tests (MOQ + NUnit)
-- 
+- Security not working yet, didn't find any good articles for asp.net core 2 

@@ -26,7 +26,9 @@ namespace SimpleDddService.Infrastructure.Aspects.Security.Authentication.Servic
                 claims = new List<ApplicationClaim>();
             }
 
-            var result = new ApplicationUser(userIdentifier, claims);
+            // Load the User from somewhere
+            var result = new ApplicationUser(userIdentifier, "Matthias", claims);
+
             return result;
         }
     }
