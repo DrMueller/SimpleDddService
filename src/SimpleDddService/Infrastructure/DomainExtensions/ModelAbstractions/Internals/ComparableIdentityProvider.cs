@@ -1,4 +1,6 @@
-﻿namespace SimpleDddService.Infrastructure.DomainExtensions.ModelAbstractions.Internals
+﻿using System;
+
+namespace SimpleDddService.Infrastructure.DomainExtensions.ModelAbstractions.Internals
 {
     public abstract class ComparableIdentityProvider
     {
@@ -30,7 +32,7 @@
 
         public override int GetHashCode()
         {
-            return (GetType() + ComparedId).GetHashCode();
+            return (GetType() + ComparedId).GetHashCode(StringComparison.OrdinalIgnoreCase);
         }
 
         public static bool operator ==(ComparableIdentityProvider a, ComparableIdentityProvider b)

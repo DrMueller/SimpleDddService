@@ -28,6 +28,7 @@ namespace SimpleDddService.Infrastructure.Aspects.Security.Authentication.Servic
 
         public void Dispose()
         {
+            GC.SuppressFinalize(this);
         }
 
         public Task<ApplicationUser> FindByIdAsync(string userId, CancellationToken cancellationToken)

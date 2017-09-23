@@ -6,7 +6,7 @@ using SimpleDddService.Infrastructure.Aspects.Security.Authentication.Models;
 
 namespace SimpleDddService.Infrastructure.Aspects.Security.Authentication.Services.Stores
 {
-    public class RoleStore : IRoleStore<Role>
+    public sealed class RoleStore : IRoleStore<Role>
     {
         public Task<IdentityResult> CreateAsync(Role role, CancellationToken cancellationToken)
         {

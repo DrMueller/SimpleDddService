@@ -47,7 +47,7 @@ namespace SimpleDddService.UnitTests.Areas.Infrastructure.Aspects.Security.Authe
                 }).Returns(Task.FromResult(appUser));
 
             // When
-            await _sut.AuthenticateAsync(authRequest);
+            await _sut.AuthenticateAsync(authRequest).ConfigureAwait(false);
 
             // Then
             actualAddClaims.Should().Be(true);

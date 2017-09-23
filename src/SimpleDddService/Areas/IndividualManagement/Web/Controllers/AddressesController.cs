@@ -32,7 +32,7 @@ namespace SimpleDddService.Areas.IndividualManagement.Web.Controllers
         }
 
         [HttpGet("{individualId}/Addresses/Test")]
-        public IActionResult GetTestAddress([FromRoute] string individualId)
+        public IActionResult GetTestAddress()
         {
             var result = new AddressDto
             {
