@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using SimpleDddService.Areas.IndividualManagement.Application.Dtos;
+using SimpleDddService.Areas.IndividualManagement.Application.AppDtos;
 
 namespace SimpleDddService.Areas.IndividualManagement.Application.AppServices
 {
     public interface IIndividualSearchAppService
     {
-        Task<IReadOnlyCollection<IndividualDto>> GetAllIndividualsAsync();
+        Task<IReadOnlyCollection<IndividualAppDto>> GetAllIndividualsAsync();
 
-        Task<IndividualDto> GetIndividualByIdAsync(string id);
+        Task<IndividualAppDto> GetIndividualByIdAsync(string id);
     }
 }

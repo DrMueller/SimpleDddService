@@ -1,8 +1,8 @@
-﻿namespace SimpleDddService.Areas.IndividualManagement.Application.Dtos
+﻿namespace SimpleDddService.Areas.IndividualManagement.Application.AppDtos
 {
-    public class AddressDto
+    public class AddressAppDto
     {
-        public AddressTypeDto AddressType { get; set; }
+        public AddressTypeAppDto AddressType { get; set; }
         public string City { get; set; }
         public string Id { get; set; }
         public string Street { get; set; }

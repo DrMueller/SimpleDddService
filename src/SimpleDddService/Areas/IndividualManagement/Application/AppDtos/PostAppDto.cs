@@ -1,6 +1,6 @@
-﻿namespace SimpleDddService.Areas.IndividualManagement.Application.Dtos
+﻿namespace SimpleDddService.Areas.IndividualManagement.Application.AppDtos
 {
-    public class PostDto
+    public class PostAppDto
     {
         public string Body { get; set; }
         public int Id { get; set; }

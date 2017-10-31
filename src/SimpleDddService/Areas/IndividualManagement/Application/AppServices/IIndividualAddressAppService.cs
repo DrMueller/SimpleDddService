@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using SimpleDddService.Areas.IndividualManagement.Application.Dtos;
+using SimpleDddService.Areas.IndividualManagement.Application.AppDtos;
 
 namespace SimpleDddService.Areas.IndividualManagement.Application.AppServices
 {
     public interface IIndividualAddressAppService
     {
-        Task<AddressDto> AddOrUpdateAddressAsync(string individualId, AddressDto dto);
+        Task<AddressAppDto> AddOrUpdateAddressAsync(string individualId, AddressAppDto dto);
 
-        Task<IReadOnlyCollection<AddressDto>> GetAllAddressesAsync(string individualId);
+        Task<IReadOnlyCollection<AddressAppDto>> GetAllAddressesAsync(string individualId);
     }
 }

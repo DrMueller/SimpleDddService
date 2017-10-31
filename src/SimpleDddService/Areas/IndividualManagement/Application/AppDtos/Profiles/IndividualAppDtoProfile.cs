@@ -3,15 +3,15 @@ using SimpleDddService.Areas.IndividualManagement.Domain.Factories;
 using SimpleDddService.Areas.IndividualManagement.Domain.Models;
 using SimpleDddService.Infrastructure.ServiceProvisioning;
 
-namespace SimpleDddService.Areas.IndividualManagement.Application.Dtos.Profiles
+namespace SimpleDddService.Areas.IndividualManagement.Application.AppDtos.Profiles
 {
-    public class IndividualDtoProfile : Profile
+    public class IndividualAppDtoProfile : Profile
     {
-        public IndividualDtoProfile()
+        public IndividualAppDtoProfile()
         {
-            CreateMap<Individual, IndividualDto>();
+            CreateMap<Individual, IndividualAppDto>();
 
-            CreateMap<IndividualDto, Individual>()
+            CreateMap<IndividualAppDto, Individual>()
                 .ConvertUsing(
                     dto =>
                     {

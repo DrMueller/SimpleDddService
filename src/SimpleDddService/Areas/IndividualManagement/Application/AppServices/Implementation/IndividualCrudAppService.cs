@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using AutoMapper;
-using SimpleDddService.Areas.IndividualManagement.Application.Dtos;
+using SimpleDddService.Areas.IndividualManagement.Application.AppDtos;
 using SimpleDddService.Areas.IndividualManagement.Domain.Models;
 using SimpleDddService.Infrastructure.DataAccess.Repositories;
 
@@ -17,11 +17,27 @@ namespace SimpleDddService.Areas.IndividualManagement.Application.AppServices.Im
             _individualRepository = repositoryFactory.CreateRepository<Individual>();
         }
 
-        public async Task<IndividualDto> CreateIndividualAsync(NewIndividualDto dto)
+        public async Task<IndividualAppDto> CreateIndividualAsync(NewIndividualAppDto dto)
         {
             var individual = _mapper.Map<Individual>(dto);
+            return await SaveIndividualAsync(individual);
+        }
+
+        public async Task DeleteIndividualAsync(string individualId)
+        {
+            await _individualRepository.DeleteAsync(individualId);
+        }
+
+        public async Task<IndividualAppDto> UpdateIndividualAsync(IndividualAppDto dto)
+        {
+            var individual = _mapper.Map<Individual>(dto);
+            return await SaveIndividualAsync(individual);
+        }
+
+        private async Task<IndividualAppDto> SaveIndividualAsync(Individual individual)
+        {
             var createdIndividual = await _individualRepository.SaveAsync(individual);
-            var result = _mapper.Map<IndividualDto>(createdIndividual);
+            var result = _mapper.Map<IndividualAppDto>(createdIndividual);
             return result;
         }
     }

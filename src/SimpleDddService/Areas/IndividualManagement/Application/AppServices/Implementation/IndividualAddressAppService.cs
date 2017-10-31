@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using SimpleDddService.Areas.IndividualManagement.Application.Dtos;
+using SimpleDddService.Areas.IndividualManagement.Application.AppDtos;
 using SimpleDddService.Areas.IndividualManagement.Domain.Models;
 using SimpleDddService.Infrastructure.DataAccess.Repositories;
 
@@ -19,7 +19,7 @@ namespace SimpleDddService.Areas.IndividualManagement.Application.AppServices.Im
             _individualRepository = repositoryFactory.CreateRepository<Individual>();
         }
 
-        public async Task<AddressDto> AddOrUpdateAddressAsync(string individualId, AddressDto dto)
+        public async Task<AddressAppDto> AddOrUpdateAddressAsync(string individualId, AddressAppDto dto)
         {
             var address = _mapper.Map<Address>(dto);
             var individual = await _individualRepository.LoadByIdAsync(individualId);
@@ -29,15 +29,15 @@ namespace SimpleDddService.Areas.IndividualManagement.Application.AppServices.Im
             var returnedIndividual = await _individualRepository.SaveAsync(individual);
 
             var returnedAddress = returnedIndividual.Addresses.First(f => f.Id == address.Id);
-            var result = _mapper.Map<AddressDto>(returnedAddress);
+            var result = _mapper.Map<AddressAppDto>(returnedAddress);
 
             return result;
         }
 
-        public async Task<IReadOnlyCollection<AddressDto>> GetAllAddressesAsync(string individualId)
+        public async Task<IReadOnlyCollection<AddressAppDto>> GetAllAddressesAsync(string individualId)
         {
             var individual = await _individualRepository.LoadByIdAsync(individualId);
-            var result = _mapper.Map<List<AddressDto>>(individual.Addresses);
+            var result = _mapper.Map<List<AddressAppDto>>(individual.Addresses);
             return result;
         }
     }

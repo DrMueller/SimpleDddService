@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SimpleDddService.Areas.IndividualManagement.Application.AppDtos;
 using SimpleDddService.Areas.IndividualManagement.Application.AppServices;
-using SimpleDddService.Areas.IndividualManagement.Application.Dtos;
 
 namespace SimpleDddService.Areas.IndividualManagement.Web.Controllers
 {
@@ -18,7 +18,7 @@ namespace SimpleDddService.Areas.IndividualManagement.Web.Controllers
         }
 
         [HttpPost("{individualId}/Addresses")]
-        public async Task<IActionResult> AddOrUpdateAddressAsync([FromRoute] string individualId, [FromBody] AddressDto dto)
+        public async Task<IActionResult> AddOrUpdateAddressAsync([FromRoute] string individualId, [FromBody] AddressAppDto dto)
         {
             var result = await _individualAddressAppService.AddOrUpdateAddressAsync(individualId, dto);
             return Ok(result);
@@ -34,9 +34,9 @@ namespace SimpleDddService.Areas.IndividualManagement.Web.Controllers
         [HttpGet("{individualId}/Addresses/Test")]
         public IActionResult GetTestAddress()
         {
-            var result = new AddressDto
+            var result = new AddressAppDto
             {
-                AddressType = AddressTypeDto.Private,
+                AddressType = AddressTypeAppDto.Private,
                 City = "Fake Town",
                 Street = "Fake Street",
                 Zip = "1715"

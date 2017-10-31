@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using SimpleDddService.Areas.IndividualManagement.Application.Dtos;
+using SimpleDddService.Areas.IndividualManagement.Application.AppDtos;
 using SimpleDddService.Areas.IndividualManagement.Domain.Models;
 using SimpleDddService.Infrastructure.DataAccess.Repositories;
 
@@ -18,18 +18,18 @@ namespace SimpleDddService.Areas.IndividualManagement.Application.AppServices.Im
             _individualRepository = repositoryFactory.CreateRepository<Individual>();
         }
 
-        public async Task<IReadOnlyCollection<IndividualDto>> GetAllIndividualsAsync()
+        public async Task<IReadOnlyCollection<IndividualAppDto>> GetAllIndividualsAsync()
         {
             var individuals = await _individualRepository.LoadAllAsync();
-            var result = _mapper.Map<List<IndividualDto>>(individuals);
+            var result = _mapper.Map<List<IndividualAppDto>>(individuals);
 
             return result;
         }
 
-        public async Task<IndividualDto> GetIndividualByIdAsync(string id)
+        public async Task<IndividualAppDto> GetIndividualByIdAsync(string id)
         {
             var individual = await _individualRepository.LoadByIdAsync(id);
-            var result = _mapper.Map<IndividualDto>(individual);
+            var result = _mapper.Map<IndividualAppDto>(individual);
 
             return result;
         }
