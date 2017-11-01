@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using SimpleDddService.Areas.IndividualManagement.Application.AppDtos;
 using SimpleDddService.Areas.IndividualManagement.Application.AppServices;
+using SimpleDddService.Areas.IndividualManagement.Web.Infrastructure.Extensions;
 
 namespace SimpleDddService.Areas.IndividualManagement.Web.Controllers
 {
@@ -37,11 +38,12 @@ namespace SimpleDddService.Areas.IndividualManagement.Web.Controllers
             return Ok(result);
         }
 
-        [HttpGet("ExternalRestCall")]
-        public async Task<IActionResult> GetFromExternalRestCallAsync()
+        [HttpGet("ExternalRestCall/{getResult}")]
+        public async Task<IActionResult> GetFromExternalRestCallAsync([FromRoute] bool getResult)
         {
-            var firstPost = await _externalCallAppService.GetFirstPostAsync();
-            return Ok(firstPost);
+            var firstPostMaybe = await _externalCallAppService.GetOnePostAsync(getResult);
+            var result = firstPostMaybe.ToGetActionResult();
+            return result;
         }
 
         [HttpGet("{individualId}", Name = "GetIndividual")]
