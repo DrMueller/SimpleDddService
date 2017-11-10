@@ -2,10 +2,10 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using SimpleDddService.Infrastructure.RestProxy.Models;
-using SimpleDddService.Infrastructure.RestProxy.Services.Handlers;
+using SimpleDddService.Infrastructure.Integration.RestProxy.Models;
+using SimpleDddService.Infrastructure.Integration.RestProxy.Services.Handlers;
 
-namespace SimpleDddService.Infrastructure.RestProxy.Services.Implementation
+namespace SimpleDddService.Infrastructure.Integration.RestProxy.Services.Implementation
 {
     public class RestProxy : IRestProxy
     {

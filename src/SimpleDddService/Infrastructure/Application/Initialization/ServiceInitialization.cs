@@ -17,9 +17,9 @@ namespace SimpleDddService.Infrastructure.Application.Initialization
             services.AddAutoMapper();
             InitializeAppSettings(services, configuration);
             InitializeCors(services);
+            SecurityInitialization.InitializeSecurity(services);
 
             var container = ContainerInitialization.CreateInitializedContainer();
-            SecurityInitialization.InitializeSecurity(services, container);
 
             var result = CreateServiceProvider(services, container);
             return result;

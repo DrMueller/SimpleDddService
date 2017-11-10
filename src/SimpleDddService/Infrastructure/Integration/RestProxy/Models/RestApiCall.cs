@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SimpleDddService.Infrastructure.RestProxy.Models
+namespace SimpleDddService.Infrastructure.Integration.RestProxy.Models
 {
     public class RestApiCall
     {

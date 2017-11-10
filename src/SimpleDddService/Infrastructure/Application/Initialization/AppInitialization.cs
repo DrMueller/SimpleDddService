@@ -14,7 +14,7 @@ namespace SimpleDddService.Infrastructure.Application.Initialization
             InitializeMiddlewares(app);
             InitializeCors(app);
             InitializeNlog(env, loggerFactory);
-
+            InitializeSecurity(app);
             app.UseAuthentication();
             app.UseMvc();
         }
@@ -33,6 +33,11 @@ namespace SimpleDddService.Infrastructure.Application.Initialization
         {
             loggerFactory.AddNLog();
             env.ConfigureNLog("nlog.config");
+        }
+
+        private static void InitializeSecurity(IApplicationBuilder app)
+        {
+            app.UseIdentityServer();
         }
     }
 }

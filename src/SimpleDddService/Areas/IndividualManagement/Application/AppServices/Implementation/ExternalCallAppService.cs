@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using SimpleDddService.Areas.IndividualManagement.Application.AppDtos;
+using SimpleDddService.Infrastructure.Integration.RestProxy.Models;
+using SimpleDddService.Infrastructure.Integration.RestProxy.Services;
 using SimpleDddService.Infrastructure.LanguageExtensions.Maybes;
-using SimpleDddService.Infrastructure.RestProxy.Models;
-using SimpleDddService.Infrastructure.RestProxy.Services;
 
 namespace SimpleDddService.Areas.IndividualManagement.Application.AppServices.Implementation
 {

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".settings", ".settings", "{58258061-BBC4-4CEB-AC5A-230A7F28B3A0}"
 	ProjectSection(SolutionItems) = preProject
@@ -22,6 +22,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".docs", ".docs", "{01B49FCA-D463-4B0F-B496-6CD0A8B4AD48}"
 	ProjectSection(SolutionItems) = preProject
 		.docs\_todos.md = .docs\_todos.md
+		.docs\links.txt = .docs\links.txt
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleDddService.UnitTests", "tests\UnitTests\SimpleDddService.UnitTests\SimpleDddService.UnitTests.csproj", "{D06EFDB2-6D9F-462F-8C28-7A28BE998C19}"

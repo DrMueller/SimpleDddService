@@ -1,2 +1,2 @@
-- Security not working yet, didn't find any good articles for asp.net core 2 
+https://www.scottbrady91.com/Identity-Server/Getting-Started-with-IdentityServer-4
 https://blogs.msdn.microsoft.com/webdev/2017/01/23/asp-net-core-authentication-with-identityserver4/

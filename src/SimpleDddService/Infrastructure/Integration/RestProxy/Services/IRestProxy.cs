@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using SimpleDddService.Infrastructure.RestProxy.Models;
+using SimpleDddService.Infrastructure.Integration.RestProxy.Models;
 
-namespace SimpleDddService.Infrastructure.RestProxy.Services
+namespace SimpleDddService.Infrastructure.Integration.RestProxy.Services
 {
     public interface IRestProxy
     {

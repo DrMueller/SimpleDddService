@@ -1,6 +1,6 @@
 ﻿using System.Net.Http;
 
-namespace SimpleDddService.Infrastructure.RestProxy.Services.Handlers
+namespace SimpleDddService.Infrastructure.Integration.RestProxy.Services.Handlers
 {
     public interface IHttpClientFactory
     {
