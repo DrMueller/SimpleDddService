@@ -56,5 +56,7 @@ namespace SimpleDddService.Infrastructure.LanguageExtensions.Maybes
         public abstract T Reduce(T whenNone);
 
         public abstract TResult Evaluate<TResult>(Func<T, TResult> whenSome, Func<TResult> whenNone);
+
+        public abstract void Evaluate(Action<T> whenSome = null, Action whenNone = null);
     }
 }

@@ -25,6 +25,7 @@ namespace SimpleDddService.Areas.IndividualManagement.Web.Controllers
         }
 
         [HttpGet("{individualId}/Addresses")]
+        [Authorize]
         public async Task<IActionResult> GetAllAddresses([FromRoute] string individualId)
         {
             var result = await _individualAddressAppService.GetAllAddressesAsync(individualId);

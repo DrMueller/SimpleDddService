@@ -1,9 +1,12 @@
 ﻿using System;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleDddService.Infrastructure.Application.Initialization.Handlers;
 using SimpleDddService.Infrastructure.Application.Settings.Models;
+using SimpleDddService.Infrastructure.Aspects.Security.Initialization;
 using SimpleDddService.Infrastructure.ServiceProvisioning;
 using StructureMap;
 
@@ -13,20 +16,31 @@ namespace SimpleDddService.Infrastructure.Application.Initialization
     {
         internal static IServiceProvider InitializeServices(IServiceCollection services, IConfigurationRoot configuration)
         {
-            services.AddMvc();
             services.AddAutoMapper();
             InitializeAppSettings(services, configuration);
             InitializeCors(services);
 
-            var container = ContainerInitialization.CreateInitializedContainer();
-            SecurityInitialization.InitializeSecurity(services, container);
+            InitializeSecurity(services);
 
-            var result = CreateServiceProvider(services, container);
+            services.AddMvc(
+                config =>
+                {
+                    // This enables the AuthorizeFilter on all endpoints
+                    var policy = new AuthorizationPolicyBuilder()
+                        .RequireAuthenticatedUser()
+                        .Build();
+
+                    config.Filters.Add(new AuthorizeFilter(policy));
+                });
+
+            var result = CreateServiceProvider(services);
             return result;
         }
 
-        private static IServiceProvider CreateServiceProvider(IServiceCollection services, IContainer container)
+        private static IServiceProvider CreateServiceProvider(IServiceCollection services)
         {
+            var container = ContainerInitialization.CreateInitializedContainer();
+
             container.Populate(services);
             var result = container.GetInstance<IServiceProvider>();
             var provisioningService = result.GetService<IProvisioningService>();
@@ -55,6 +69,15 @@ namespace SimpleDddService.Infrastructure.Application.Initialization
                                 .AllowAnyHeader()
                                 .AllowCredentials());
                 });
+        }
+
+        private static void InitializeSecurity(IServiceCollection services)
+        {
+            // TODO: There has to be a better way?
+            var servicesProvider = CreateServiceProvider(services);
+            var securityInitializationService = servicesProvider.GetService<ISecurityInitializationService>();
+
+            securityInitializationService.InitializeSecurity(services);
         }
     }
 }

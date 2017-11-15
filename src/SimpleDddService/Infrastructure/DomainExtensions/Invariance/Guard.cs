@@ -24,7 +24,7 @@ namespace SimpleDddService.Infrastructure.DomainExtensions.Invariance
             throw new ArgumentException(exceptionMessage);
         }
 
-        public static void StringNotNullorEmpty(Expression<Func<string>> propertyExpression)
+        public static void StringNotNullOrEmpty(Expression<Func<string>> propertyExpression)
         {
             var func = propertyExpression.Compile();
             var stringValue = func();

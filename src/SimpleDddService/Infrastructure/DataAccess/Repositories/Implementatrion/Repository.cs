@@ -7,6 +7,7 @@ using MongoDB.Driver;
 using SimpleDddService.Infrastructure.DataAccess.Repositories.Handlers;
 using SimpleDddService.Infrastructure.DomainExtensions.ModelAbstractions;
 using SimpleDddService.Infrastructure.DomainExtensions.Specifications;
+using SimpleDddService.Infrastructure.LanguageExtensions.Maybes;
 
 namespace SimpleDddService.Infrastructure.DataAccess.Repositories.Implementatrion
 {
@@ -48,6 +49,13 @@ namespace SimpleDddService.Infrastructure.DataAccess.Repositories.Implementatrio
         {
             var entries = await LoadByExpressionAsync(x => x.Id == id);
             var result = entries.SingleOrDefault();
+            return result;
+        }
+
+        public async Task<T> LoadSingleAsync(ISpecification<T> spec)
+        {
+            var allResults = await LoadAsync(spec);
+            var result = allResults.SingleOrDefault();
             return result;
         }
 

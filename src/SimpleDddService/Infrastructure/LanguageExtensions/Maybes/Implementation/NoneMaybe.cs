@@ -26,6 +26,16 @@ namespace SimpleDddService.Infrastructure.LanguageExtensions.Maybes.Implementati
             return !ReferenceEquals(null, other);
         }
 
+        public override TResult Evaluate<TResult>(Func<T, TResult> whenSome, Func<TResult> whenNone)
+        {
+            return whenNone();
+        }
+
+        public override void Evaluate(Action<T> whenSome = null, Action whenNone = null)
+        {
+            whenNone?.Invoke();
+        }
+
         public override int GetHashCode()
         {
             return 0;
@@ -44,11 +54,6 @@ namespace SimpleDddService.Infrastructure.LanguageExtensions.Maybes.Implementati
         public override T Reduce(T whenNone)
         {
             return whenNone;
-        }
-
-        public override TResult Evaluate<TResult>(Func<T, TResult> whenSome, Func<TResult> whenNone)
-        {
-            return whenNone();
         }
     }
 }

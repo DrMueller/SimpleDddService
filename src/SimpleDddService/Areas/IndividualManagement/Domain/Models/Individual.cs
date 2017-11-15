@@ -11,8 +11,8 @@ namespace SimpleDddService.Areas.IndividualManagement.Domain.Models
 
         public Individual(string firstName, string lastName, IndividualGender gender, DateTime birthDate) : this()
         {
-            Guard.StringNotNullorEmpty(() => firstName);
-            Guard.StringNotNullorEmpty(() => lastName);
+            Guard.StringNotNullOrEmpty(() => firstName);
+            Guard.StringNotNullOrEmpty(() => lastName);
             Guard.ObjectNotNull(() => birthDate);
 
             FirstName = firstName;

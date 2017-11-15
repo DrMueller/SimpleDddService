@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\Infrastructure\Application\" />
+    <Folder Include="Areas\Infrastructure\Aspects\Security\Authentication\" />
   </ItemGroup>
 
   <ItemGroup>

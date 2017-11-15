@@ -4,5 +4,6 @@
     {
         public const string SectionName = "AppSettings";
         public MongoDbSettings MongoDbSettings { get; set; }
+        public SecuritySettings SecuritySettings { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
 using SimpleDddService.Infrastructure.Aspects.Logging;
 using SimpleDddService.Infrastructure.ServiceProvisioning;

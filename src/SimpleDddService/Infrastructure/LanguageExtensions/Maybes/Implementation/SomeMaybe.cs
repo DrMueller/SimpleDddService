@@ -38,6 +38,11 @@ namespace SimpleDddService.Infrastructure.LanguageExtensions.Maybes.Implementati
             return whenSome(_content);
         }
 
+        public override void Evaluate(Action<T> whenSome = null, Action whenNone = null)
+        {
+            whenSome?.Invoke(_content);
+        }
+
         public override int GetHashCode()
         {
             return _content?.GetHashCode() ?? 0;
@@ -60,8 +65,8 @@ namespace SimpleDddService.Infrastructure.LanguageExtensions.Maybes.Implementati
 
         private bool ContentEquals(T other)
         {
-            return (ReferenceEquals(null, _content) && ReferenceEquals(null, other)) ||
-                (!ReferenceEquals(null, _content) && _content.Equals(other));
+            return ReferenceEquals(null, _content) && ReferenceEquals(null, other) ||
+                !ReferenceEquals(null, _content) && _content.Equals(other);
         }
     }
 }

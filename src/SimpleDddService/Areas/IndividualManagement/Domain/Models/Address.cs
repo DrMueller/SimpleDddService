@@ -7,9 +7,9 @@ namespace SimpleDddService.Areas.IndividualManagement.Domain.Models
     {
         public Address(AddressType addressType, string street, string zip, string city)
         {
-            Guard.StringNotNullorEmpty(() => street);
-            Guard.StringNotNullorEmpty(() => zip);
-            Guard.StringNotNullorEmpty(() => city);
+            Guard.StringNotNullOrEmpty(() => street);
+            Guard.StringNotNullOrEmpty(() => zip);
+            Guard.StringNotNullOrEmpty(() => city);
 
             AddressType = addressType;
             Street = street;

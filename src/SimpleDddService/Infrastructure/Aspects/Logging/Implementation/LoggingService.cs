@@ -21,13 +21,13 @@ namespace SimpleDddService.Infrastructure.Aspects.Logging.Implementation
 
         public void LogInfo(string message)
         {
-            Guard.StringNotNullorEmpty(() => message);
+            Guard.StringNotNullOrEmpty(() => message);
             _logProxy.LogInformation(message);
         }
 
         public void LogWarning(string message)
         {
-            Guard.StringNotNullorEmpty(() => message);
+            Guard.StringNotNullOrEmpty(() => message);
             _logProxy.LogWarning(message);
         }
     }

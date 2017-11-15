@@ -1,4 +1,6 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using SimpleDddService.Areas.IndividualManagement.Application.AppDtos;
@@ -17,7 +19,8 @@ namespace SimpleDddService.Areas.IndividualManagement.Web.Controllers
         public IndividualsController(
             IIndividualCrudAppService individualCrudAppService,
             IIndividualSearchAppService individualSearchAppService,
-            IExternalCallAppService externalCallAppService)
+            IExternalCallAppService externalCallAppService, 
+        )
         {
             _individualCrudAppService = individualCrudAppService;
             _individualSearchAppService = individualSearchAppService;
@@ -25,10 +28,18 @@ namespace SimpleDddService.Areas.IndividualManagement.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> CreateIndividualAsync([FromBody] NewIndividualAppDto dto)
         {
             var result = await _individualCrudAppService.CreateIndividualAsync(dto);
             return CreatedAtRoute("GetIndividual", new { individualId = result.Id }, result);
+        }
+
+        [HttpDelete("{individualId}")]
+        public async Task<IActionResult> DeleteIndividualAsync([FromRoute] string individualId)
+        {
+            await _individualCrudAppService.DeleteIndividualAsync(individualId);
+            return NoContent();
         }
 
         [HttpGet]
@@ -76,13 +87,6 @@ namespace SimpleDddService.Areas.IndividualManagement.Web.Controllers
 
             var retuernedIndividualDto = await _individualCrudAppService.UpdateIndividualAsync(existingIndividualDto);
             return Ok(retuernedIndividualDto);
-        }
-
-        [HttpDelete("{individualId}")]
-        public async Task<IActionResult> DeleteIndividualAsync([FromRoute] string individualId)
-        {
-            await _individualCrudAppService.DeleteIndividualAsync(individualId);
-            return NoContent();
         }
     }
 }
