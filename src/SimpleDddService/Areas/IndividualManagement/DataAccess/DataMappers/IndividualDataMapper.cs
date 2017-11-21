@@ -2,7 +2,7 @@
 using SimpleDddService.Areas.IndividualManagement.Domain.Models;
 using SimpleDddService.Infrastructure.DataAccess.DataMapping;
 
-namespace SimpleDddService.Areas.IndividualManagement.Data.DataMappers
+namespace SimpleDddService.Areas.IndividualManagement.DataAccess.DataMappers
 {
     public class IndividualDataMapper : IDataMapper
     {

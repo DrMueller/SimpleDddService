@@ -1,12 +1,10 @@
 ﻿using System;
 using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleDddService.Infrastructure.Application.Aspects.Security.Initialization.Services;
 using SimpleDddService.Infrastructure.Application.Initialization.Handlers;
 using SimpleDddService.Infrastructure.Application.Settings.Models;
-using SimpleDddService.Infrastructure.Aspects.Security.Initialization;
 using SimpleDddService.Infrastructure.ServiceProvisioning;
 using StructureMap;
 
@@ -19,19 +17,9 @@ namespace SimpleDddService.Infrastructure.Application.Initialization
             services.AddAutoMapper();
             InitializeAppSettings(services, configuration);
             InitializeCors(services);
-
             InitializeSecurity(services);
 
-            services.AddMvc(
-                config =>
-                {
-                    // This enables the AuthorizeFilter on all endpoints
-                    var policy = new AuthorizationPolicyBuilder()
-                        .RequireAuthenticatedUser()
-                        .Build();
-
-                    config.Filters.Add(new AuthorizeFilter(policy));
-                });
+            services.AddMvc();
 
             var result = CreateServiceProvider(services);
             return result;

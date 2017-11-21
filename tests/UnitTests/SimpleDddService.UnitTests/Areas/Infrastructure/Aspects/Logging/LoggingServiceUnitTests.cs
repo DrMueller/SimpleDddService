@@ -1,8 +1,8 @@
 ﻿using System;
 using FluentAssertions;
 using Moq;
-using SimpleDddService.Infrastructure.Aspects.Logging.Handlers;
-using SimpleDddService.Infrastructure.Aspects.Logging.Implementation;
+using SimpleDddService.Infrastructure.Application.Aspects.Logging.Handlers;
+using SimpleDddService.Infrastructure.Application.Aspects.Logging.Implementation;
 using SimpleDddService.Infrastructure.DomainExtensions.Invariance;
 using Xunit;
 

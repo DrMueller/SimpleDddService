@@ -1,1 +1,1 @@
-- Security not working yet, didn't find any good articles for asp.net core 2 
+- Security with JWT not working yet, asked on StackOverflow

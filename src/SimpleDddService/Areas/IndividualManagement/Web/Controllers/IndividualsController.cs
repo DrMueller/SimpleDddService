@@ -19,7 +19,7 @@ namespace SimpleDddService.Areas.IndividualManagement.Web.Controllers
         public IndividualsController(
             IIndividualCrudAppService individualCrudAppService,
             IIndividualSearchAppService individualSearchAppService,
-            IExternalCallAppService externalCallAppService, 
+            IExternalCallAppService externalCallAppService
         )
         {
             _individualCrudAppService = individualCrudAppService;
@@ -28,7 +28,7 @@ namespace SimpleDddService.Areas.IndividualManagement.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(Policy = "TimeReporting")]
         public async Task<IActionResult> CreateIndividualAsync([FromBody] NewIndividualAppDto dto)
         {
             var result = await _individualCrudAppService.CreateIndividualAsync(dto);

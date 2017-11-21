@@ -65,8 +65,8 @@ namespace SimpleDddService.Infrastructure.LanguageExtensions.Maybes.Implementati
 
         private bool ContentEquals(T other)
         {
-            return ReferenceEquals(null, _content) && ReferenceEquals(null, other) ||
-                !ReferenceEquals(null, _content) && _content.Equals(other);
+            return (ReferenceEquals(null, _content) && ReferenceEquals(null, other)) ||
+                (!ReferenceEquals(null, _content) && _content.Equals(other));
         }
     }
 }

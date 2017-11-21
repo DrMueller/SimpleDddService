@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
-using SimpleDddService.Infrastructure.Aspects.Logging;
+using SimpleDddService.Infrastructure.Application.Aspects.Logging;
 using SimpleDddService.Infrastructure.ServiceProvisioning;
 
 namespace SimpleDddService.Infrastructure.Application.Middlewares

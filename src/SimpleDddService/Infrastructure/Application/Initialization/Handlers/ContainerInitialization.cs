@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using SimpleDddService.Infrastructure.Application.Aspects.Security.Authorization.Services.ClaimProviders;
 using SimpleDddService.Infrastructure.DataAccess.DataMapping;
 using SimpleDddService.Infrastructure.DataAccess.DataMapping.Implementation;
 using SimpleDddService.Infrastructure.DataAccess.Repositories;
@@ -27,6 +28,7 @@ namespace SimpleDddService.Infrastructure.Application.Initialization.Handlers
                             scan.AddAllTypesOf(typeof(IRepository<>));
                             scan.AddAllTypesOf(typeof(IMongoDbFilterDefinitionFactory<>));
                             scan.AddAllTypesOf<IDataMapper>();
+                            scan.AddAllTypesOf<IClaimProvider>();
                             scan.WithDefaultConventions();
                         });
 
